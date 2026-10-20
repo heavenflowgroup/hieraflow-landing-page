@@ -7,6 +7,8 @@ import Index from "./pages/Index";
 import QuiSommesNous from "./pages/QuiSommesNous";
 import Accessibilite from "./pages/Accessibilite";
 import NotFound from "./pages/NotFound";
+import Confidentialite from "./pages/Confidentialite";
+import TrafficConsent from "./components/TrafficConsent";
 
 const queryClient = new QueryClient();
 
@@ -16,10 +18,12 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <TrafficConsent />
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/qui-sommes-nous" element={<QuiSommesNous />} />
           <Route path="/accessibilite" element={<Accessibilite />} />
+          <Route path="/confidentialite" element={<Confidentialite />} />
           <Route path="/livre-blanc/:slug" element={<Index />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

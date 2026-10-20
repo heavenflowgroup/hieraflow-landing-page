@@ -1,4 +1,6 @@
 import { Building2, Mail, MapPin, Clock, Calendar } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { openCookieSettings } from "@/components/TrafficConsent";
 
 const Footer = () => {
   return (
@@ -71,9 +73,10 @@ const Footer = () => {
               © 2024 Hieraflow. Tous droits réservés.
             </p>
             <nav aria-label="Liens légaux">
-              <ul className="flex items-center space-x-6 text-background/60" role="list">
+              <ul className="flex flex-wrap justify-center items-center gap-4 text-background/60" role="list">
                 <li role="listitem"><a href="/accessibilite" className="hover:text-accent transition-colors focus:text-accent focus:outline-none focus:ring-2 focus:ring-accent">Accessibilité RGAA</a></li>
-                <li role="listitem"><a href="#" className="hover:text-accent transition-colors focus:text-accent focus:outline-none focus:ring-2 focus:ring-accent">Politique de confidentialité</a></li>
+                <li role="listitem"><a href="/confidentialite" className="hover:text-accent transition-colors focus:text-accent focus:outline-none focus:ring-2 focus:ring-accent">Politique de confidentialité</a></li>
+                <li role="listitem"><Button data-consent-ui variant="link" onClick={openCookieSettings} className="text-background/80 h-auto p-0 whitespace-normal">Paramètres des cookies</Button></li>
                 <li role="listitem"><a href="#" className="hover:text-accent transition-colors focus:text-accent focus:outline-none focus:ring-2 focus:ring-accent">Mentions légales</a></li>
                 <li role="listitem"><a href="#" className="hover:text-accent transition-colors focus:text-accent focus:outline-none focus:ring-2 focus:ring-accent">CGU</a></li>
               </ul>

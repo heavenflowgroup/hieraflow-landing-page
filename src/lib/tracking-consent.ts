@@ -20,7 +20,7 @@ export function permission(kind: "analytics" | "advertising", region: string | n
 export function readConsent(): ConsentRecord | null {
   try {
     const records: ConsentRecord[] = JSON.parse(localStorage.getItem(CONSENT_KEY) || "[]");
-    const record = records.at(-1);
+    const record = records[records.length - 1];
     if (!record || record.version !== NOTICE_VERSION || typeof record.analytics !== "boolean" || typeof record.advertising !== "boolean") return null;
     return record;
   } catch { return null; }

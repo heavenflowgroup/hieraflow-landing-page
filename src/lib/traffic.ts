@@ -23,6 +23,7 @@ function script(id: string, src: string) {
 export function applyTrackingConsent(nextRegion: string | null, record: ConsentRecord | null) {
   region = nextRegion; current = record;
   const analytics = allowed("analytics"), advertising = allowed("advertising");
+  if (ga) (window as unknown as Record<string, unknown>)[`ga-disable-${ga}`] = !analytics;
   window.dataLayer ||= [];
   window.gtag ||= function (..._args: unknown[]) { window.dataLayer?.push(arguments); };
   window.gtag("consent", googleLoaded ? "update" : "default", {
@@ -37,7 +38,7 @@ export function applyTrackingConsent(nextRegion: string | null, record: ConsentR
       window.gtag("js", new Date());
       script("hieraflow-google-tag", `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ga || ads)}`);
     }
-    if (analytics && ga && !analyticsAllowed) window.gtag("config", ga, { send_page_view: false, allow_google_signals: false, allow_ad_personalization_signals: false });
+    if (analytics && ga && !analyticsAllowed) window.gtag("config", ga, { send_page_view: false, page_location: `${location.origin}${path()}`, page_referrer: "", page_title: "Hieraflow", allow_google_signals: false, allow_ad_personalization_signals: false });
     if (advertising && ads && !advertisingAllowed) window.gtag("config", ads, { send_page_view: false });
   }
   if (advertising && pixel && !metaLoaded) {
@@ -54,10 +55,6 @@ export function applyTrackingConsent(nextRegion: string | null, record: ConsentR
   const newlyAllowed = (analytics && !analyticsAllowed) || (advertising && !advertisingAllowed);
   analyticsAllowed = analytics; advertisingAllowed = advertising;
   if (newlyAllowed) trackPage();
-  if (!analytics) {
-    // Disable GA's automatic hits, including enhanced measurement, after withdrawal.
-    if (ga) (window as unknown as Record<string, unknown>)[`ga-disable-${ga}`] = true;
-  } else if (ga) (window as unknown as Record<string, unknown>)[`ga-disable-${ga}`] = false;
 }
 export function trackPage() {
   currentPath = path();

@@ -1,7 +1,7 @@
 import { describe, test } from "node:test";
 import assert from "node:assert/strict";
-import { permission, requiresConsent, type ConsentRecord } from "./tracking-consent";
-const choice: ConsentRecord = { visitor: "test", at: "2026-10-20", version: "2026-10-20", region: "FR", analytics: true, advertising: false };
+import { permission, requiresConsent } from "./tracking-consent";
+const choice = { visitor: "test", at: "2026-10-20", version: "2026-10-20", region: "FR", analytics: true, advertising: false };
 describe("regional tracking permission", () => {
   test("French visitors require consent", () => { assert.equal(requiresConsent("FR"), true); assert.equal(permission("analytics", "FR", null), false); });
   test("unresolved region blocks tracking", () => { assert.equal(permission("analytics", null, null), false); assert.equal(requiresConsent("XX"), true); });
